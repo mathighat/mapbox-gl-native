@@ -3,6 +3,7 @@
 #import "MGLOfflineStorage_Private.h"
 #import "MGLOfflineRegion_Private.h"
 #import "MGLTilePyramidOfflineRegion.h"
+#import "MGLTilePyramidOfflineRegion_Private.h"
 
 #import "NSValue+MGLAdditions.h"
 
@@ -76,7 +77,15 @@ private:
 
     const mbgl::OfflineRegionDefinition &regionDefinition = _mbglOfflineRegion->getDefinition();
     NSAssert([MGLTilePyramidOfflineRegion conformsToProtocol:@protocol(MGLOfflineRegion_Private)], @"MGLTilePyramidOfflineRegion should conform to MGLOfflineRegion_Private.");
-    return [(id <MGLOfflineRegion_Private>)[MGLTilePyramidOfflineRegion alloc] initWithOfflineRegionDefinition:regionDefinition];
+    
+    return regionDefinition.match(
+                           [&] (const mbgl::OfflineTilePyramidRegionDefinition def){
+                               return [(id <MGLTilePyramidOfflineRegion_Private>)[MGLTilePyramidOfflineRegion alloc] initWithOfflineRegionDefinition:def];
+                           },
+                           [&] (const mbgl::OfflineGeometryRegionDefinition&){
+                               // TODO
+                               return Nil;
+                           });
 }
 
 - (NSData *)context {

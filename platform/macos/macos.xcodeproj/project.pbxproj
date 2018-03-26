@@ -93,6 +93,7 @@
 		92092EF01F5EB10E00AF5130 /* MGLMapSnapshotter.h in Headers */ = {isa = PBXBuildFile; fileRef = 92092EEE1F5EB10E00AF5130 /* MGLMapSnapshotter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92092EF11F5EB10E00AF5130 /* MGLMapSnapshotter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 92092EEF1F5EB10E00AF5130 /* MGLMapSnapshotter.mm */; };
 		920A3E591E6F859D00C16EFC /* MGLSourceQueryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 920A3E581E6F859D00C16EFC /* MGLSourceQueryTests.m */; };
+		9221BAAF20699CBB0054BDF4 /* MGLTilePyramidOfflineRegion_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 9221BAAE20699CBA0054BDF4 /* MGLTilePyramidOfflineRegion_Private.h */; };
 		92F2C3EB1F0E3A1900268EC0 /* MGLRendererFrontend.h in Headers */ = {isa = PBXBuildFile; fileRef = 92F2C3EA1F0E3A1900268EC0 /* MGLRendererFrontend.h */; };
 		9654C12B1FFC38E000DB6A19 /* MGLPolyline_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 9654C12A1FFC38E000DB6A19 /* MGLPolyline_Private.h */; };
 		9654C12D1FFC394700DB6A19 /* MGLPolygon_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 9654C12C1FFC394700DB6A19 /* MGLPolygon_Private.h */; };
@@ -382,6 +383,7 @@
 		92092EEE1F5EB10E00AF5130 /* MGLMapSnapshotter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLMapSnapshotter.h; sourceTree = "<group>"; };
 		92092EEF1F5EB10E00AF5130 /* MGLMapSnapshotter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MGLMapSnapshotter.mm; sourceTree = "<group>"; };
 		920A3E581E6F859D00C16EFC /* MGLSourceQueryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGLSourceQueryTests.m; sourceTree = "<group>"; };
+		9221BAAE20699CBA0054BDF4 /* MGLTilePyramidOfflineRegion_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLTilePyramidOfflineRegion_Private.h; sourceTree = "<group>"; };
 		92F2C3EA1F0E3A1900268EC0 /* MGLRendererFrontend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLRendererFrontend.h; sourceTree = "<group>"; };
 		9654C12A1FFC38E000DB6A19 /* MGLPolyline_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLPolyline_Private.h; sourceTree = "<group>"; };
 		9654C12C1FFC394700DB6A19 /* MGLPolygon_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGLPolygon_Private.h; sourceTree = "<group>"; };
@@ -999,6 +1001,7 @@
 				DAE6C3741CC31E2A00DB3429 /* MGLOfflineStorage_Private.h */,
 				DAE6C3751CC31E2A00DB3429 /* MGLOfflineStorage.mm */,
 				DAE6C3581CC31E0400DB3429 /* MGLTilePyramidOfflineRegion.h */,
+				9221BAAE20699CBA0054BDF4 /* MGLTilePyramidOfflineRegion_Private.h */,
 				DAE6C37B1CC31E2A00DB3429 /* MGLTilePyramidOfflineRegion.mm */,
 			);
 			name = "Offline Maps";
@@ -1276,6 +1279,7 @@
 				352742851D4C244700A1ECE6 /* MGLRasterSource.h in Headers */,
 				9654C12D1FFC394700DB6A19 /* MGLPolygon_Private.h in Headers */,
 				408AA85B1DAEECFE00022900 /* MGLShape_Private.h in Headers */,
+				9221BAAF20699CBB0054BDF4 /* MGLTilePyramidOfflineRegion_Private.h in Headers */,
 				DACC22181CF3D4F700D220D9 /* MGLFeature_Private.h in Headers */,
 				9654C12B1FFC38E000DB6A19 /* MGLPolyline_Private.h in Headers */,
 				DA6408D71DA4E5DA00908C90 /* MGLVectorStyleLayer.h in Headers */,
