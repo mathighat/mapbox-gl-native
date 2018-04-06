@@ -280,7 +280,7 @@ NSArray *MGLSubpredicatesWithJSONObjects(NSArray *objects) {
     }
     if ([op isEqualToString:@">="]) {
         NSArray *subexpressions = MGLSubexpressionsWithJSONObjects([objects subarrayWithRange:NSMakeRange(1, objects.count - 1)]);
-        return [NSPredicate predicateWithFormat:@"%K >= %@" argumentArray:subexpressions];
+        return [NSPredicate predicateWithFormat:@"%@ >= %@" argumentArray:subexpressions];
     }
     if ([op isEqualToString:@"!"]) {
         NSArray *subpredicates = MGLSubpredicatesWithJSONObjects([objects subarrayWithRange:NSMakeRange(1, objects.count - 1)]);
