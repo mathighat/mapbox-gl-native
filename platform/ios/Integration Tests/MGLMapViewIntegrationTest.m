@@ -65,6 +65,12 @@
     }
 }
 
+- (void)mapViewRegionIsChanging:(MGLMapView *)mapView {
+    if (self.regionIsChanging) {
+        self.regionIsChanging(mapView);
+    }
+}
+
 #pragma mark - Utilities
 
 - (void)waitForMapViewToFinishLoadingStyleWithTimeout:(NSTimeInterval)timeout {
