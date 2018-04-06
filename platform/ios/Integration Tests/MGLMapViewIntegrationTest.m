@@ -9,11 +9,6 @@
 
 #import "MGLMapViewIntegrationTest.h"
 
-@interface MGLMapViewIntegrationTest ()
-@property (nonatomic, strong) XCTestExpectation *styleLoadingExpectation;
-@property (nonatomic, strong) XCTestExpectation *renderFinishedExpectation;
-@end
-
 @implementation MGLMapViewIntegrationTest
 
 - (void)setUp {
