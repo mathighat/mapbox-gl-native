@@ -576,6 +576,66 @@ namespace mbgl {
         NSArray *expected = @[@"==", @1, @2];
         XCTAssertEqualObjects([NSPredicate predicateWithFormat:@"1 = 2"].mgl_jsonExpressionObject, expected);
     }
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"x == YES"];
+        NSArray *jsonExpression = @[@"==", @[@"get", @"x"], @YES];
+        XCTAssertEqualObjects(predicate.mgl_jsonExpressionObject, jsonExpression);
+        XCTAssertEqualObjects([NSPredicate mgl_predicateWithJSONObject:jsonExpression], predicate);
+    }
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"x < 5"];
+        NSArray *jsonExpression = @[@"<", @[@"number", @[@"get", @"x"]], @[@"number", @5]];
+        XCTAssertEqualObjects(predicate.mgl_jsonExpressionObject, jsonExpression);
+        XCTAssertEqualObjects([NSPredicate mgl_predicateWithJSONObject:jsonExpression], predicate);
+    }
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"x > 5"];
+        NSArray *jsonExpression = @[@">", @[@"number", @[@"get", @"x"]], @[@"number", @5]];
+        XCTAssertEqualObjects(predicate.mgl_jsonExpressionObject, jsonExpression);
+        XCTAssertEqualObjects([NSPredicate mgl_predicateWithJSONObject:jsonExpression], predicate);
+    }
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"x <= 5"];
+        NSArray *jsonExpression = @[@"<=", @[@"number", @[@"get", @"x"]], @[@"number", @5]];
+        XCTAssertEqualObjects(predicate.mgl_jsonExpressionObject, jsonExpression);
+        XCTAssertEqualObjects([NSPredicate mgl_predicateWithJSONObject:jsonExpression], predicate);
+    }
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"x >= 5"];
+        NSArray *jsonExpression = @[@">=", @[@"number", @[@"get", @"x"]], @[@"number", @5]];
+        XCTAssertEqualObjects(predicate.mgl_jsonExpressionObject, jsonExpression);
+        XCTAssertEqualObjects([NSPredicate mgl_predicateWithJSONObject:jsonExpression], predicate);
+    }
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"x < y"];
+        NSArray *jsonExpression = @[@"<", @[@"get", @"x"], @[@"get", @"y"]];
+        XCTAssertEqualObjects(predicate.mgl_jsonExpressionObject, jsonExpression);
+        XCTAssertEqualObjects([NSPredicate mgl_predicateWithJSONObject:jsonExpression], predicate);
+    }
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"x > y"];
+        NSArray *jsonExpression = @[@">", @[@"get", @"x"], @[@"get", @"y"]];
+        XCTAssertEqualObjects(predicate.mgl_jsonExpressionObject, jsonExpression);
+        XCTAssertEqualObjects([NSPredicate mgl_predicateWithJSONObject:jsonExpression], predicate);
+    }
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"x <= y"];
+        NSArray *jsonExpression = @[@"<=", @[@"get", @"x"], @[@"get", @"y"]];
+        XCTAssertEqualObjects(predicate.mgl_jsonExpressionObject, jsonExpression);
+        XCTAssertEqualObjects([NSPredicate mgl_predicateWithJSONObject:jsonExpression], predicate);
+    }
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"x >= y"];
+        NSArray *jsonExpression = @[@">=", @[@"get", @"x"], @[@"get", @"y"]];
+        XCTAssertEqualObjects(predicate.mgl_jsonExpressionObject, jsonExpression);
+        XCTAssertEqualObjects([NSPredicate mgl_predicateWithJSONObject:jsonExpression], predicate);
+    }
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"x > 'value'"];
+        NSArray *jsonExpression = @[@">",  @[@"string", @[@"get", @"x"]], @[@"string", @"value"]];
+        XCTAssertEqualObjects(predicate.mgl_jsonExpressionObject, jsonExpression);
+        XCTAssertEqualObjects([NSPredicate mgl_predicateWithJSONObject:jsonExpression], predicate);
+    }
 }
 
 @end
