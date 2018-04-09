@@ -76,6 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (id)mgl_has:(id)element;
 
+- (id)mgl_between:(id)firstValue, ...;
+
 @end
 
 extern NSArray *MGLSubexpressionsWithJSONObjects(NSArray *objects);

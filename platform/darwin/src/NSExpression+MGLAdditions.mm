@@ -62,6 +62,7 @@
     INSTALL_METHOD(mgl_step:from:stops:);
     INSTALL_METHOD(mgl_coalesce:);
     INSTALL_METHOD(mgl_does:have:);
+    INSTALL_METHOD(mgl_expression:betweenLeftHandExpression:rightHandExpression:);
     
     // Install functions that resemble control structures, taking arbitrary
     // numbers of arguments. Vararg aftermarket functions need to be declared
@@ -134,6 +135,16 @@
 - (id)MGL_MATCH:(id)firstCondition, ... {
     [NSException raise:NSInvalidArgumentException
                 format:@"Assignment expressions lack underlying Objective-C implementations."];
+    return nil;
+}
+
+/**
+ Returns a Boolean value indicating whether the object has a value for the given
+ key.
+ */
+- (BOOL)mgl_expression:(id)attribute betweenLeftHandExpression:(NSExpression *)leftHandExpression rightHandExpression:(NSExpression *)rightHandExpression {
+    [NSException raise:NSInvalidArgumentException
+                format:@"Between expressions lack underlying Objective-C implementations."];
     return nil;
 }
 
@@ -459,6 +470,12 @@
     return nil;
 }
 
+- (id)mgl_between:(id)firstValue, ... {
+    [NSException raise:NSInvalidArgumentException
+                format:@"Between expressions lack underlying Objective-C implementations."];
+    return nil;
+}
+
 @end
 
 @implementation NSExpression (MGLAdditions)
@@ -695,6 +712,13 @@ NSArray *MGLSubexpressionsWithJSONObjects(NSArray *objects) {
             }
             
             return [NSExpression expressionWithFormat:@"mgl_coalesce(%@)", expressions];
+        } else if ([op isEqualToString:@"all"]) {
+            NSComparisonPredicate *leftHandPredicate = [NSComparisonPredicate mgl_predicateWithJSONObject:argumentObjects.firstObject];
+            NSComparisonPredicate *rightHandPredicate = [NSComparisonPredicate mgl_predicateWithJSONObject:argumentObjects[1]];
+
+            
+            return [NSExpression expressionForFunction:@"mgl_expression:betweenLeftHandExpression:rightHandExpression:"
+                                             arguments:@[leftHandPredicate.leftExpression, leftHandPredicate.rightExpression, rightHandPredicate.rightExpression]];
         } else {
             NSArray *subexpressions = MGLSubexpressionsWithJSONObjects(array);
             return [NSExpression expressionForFunction:@"MGL_FUNCTION" arguments:subexpressions];
@@ -900,6 +924,10 @@ NSArray *MGLSubexpressionsWithJSONObjects(NSArray *objects) {
                 }
                 [NSException raise:NSInvalidArgumentException
                             format:@"Casting expression to %@ not yet implemented.", type];
+            }  else if ([function isEqualToString:@"mgl_expression:betweenLeftHandExpression:rightHandExpression:"] ||
+                        [function isEqualToString:@"mgl_between:"]) {
+                
+                return self.mgl_jsonBetweenExpressionObject;
             } else if ([function isEqualToString:@"MGL_FUNCTION"]) {
                 return self.arguments.mgl_jsonExpressionObject;
             } else if (op == [MGLColor class] && [function isEqualToString:@"colorWithRed:green:blue:alpha:"]) {
@@ -1098,6 +1126,25 @@ NSArray *MGLSubexpressionsWithJSONObjects(NSArray *objects) {
         [expressionObject addObject:operand.mgl_jsonExpressionObject];
     }
     return expressionObject;
+}
+
+- (id)mgl_jsonBetweenExpressionObject {
+    BOOL isAftermarketFunction = [self.function isEqualToString:@"mgl_expression:betweenLeftHandExpression:rightHandExpression:"];
+    NSUInteger index = isAftermarketFunction ? 1 : 0;
+    NSArray *arguments = isAftermarketFunction ? self.arguments : self.arguments[0].constantValue;
+    NSExpression *attribute = isAftermarketFunction ? self.arguments.firstObject : self.operand;
+    NSPredicate *leftHandPredicate = [NSComparisonPredicate predicateWithLeftExpression:attribute
+                                                                        rightExpression:arguments[index]
+                                                                               modifier:NSAllPredicateModifier
+                                                                                   type:NSGreaterThanOrEqualToPredicateOperatorType
+                                                                                options:0];
+    NSPredicate *rightHandPredicate = [NSComparisonPredicate predicateWithLeftExpression:attribute
+                                                                         rightExpression:arguments[index + 1]
+                                                                               modifier:NSAllPredicateModifier
+                                                                                    type:NSGreaterThanOrEqualToPredicateOperatorType
+                                                                                 options:0];
+    
+    return @[@"all", leftHandPredicate.mgl_jsonExpressionObject, rightHandPredicate.mgl_jsonExpressionObject];
 }
 
 @end

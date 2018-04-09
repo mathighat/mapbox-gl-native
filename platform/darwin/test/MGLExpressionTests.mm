@@ -758,6 +758,21 @@ using namespace std::string_literals;
         XCTAssertEqualObjects([NSExpression mgl_expressionWithJSONObject:jsonExpression], expression);
         XCTAssertEqualObjects(expression.mgl_jsonExpressionObject, jsonExpression);
     }
+    {
+        NSExpression *expression = [NSExpression expressionForFunction:@"mgl_expression:betweenLeftHandExpression:rightHandExpression:"
+                                                             arguments:@[[NSExpression expressionForKeyPath:@"x"],
+                                                                         [NSExpression expressionForConstantValue:@10],
+                                                                         [NSExpression expressionForConstantValue:@100]]];
+        NSArray *jsonExpression = @[@"all", @[@">=", @[@"get", @"x"], @10], @[@">=", @[@"get", @"x"], @100]];
+        XCTAssertEqualObjects(expression.mgl_jsonExpressionObject, jsonExpression);
+        XCTAssertEqualObjects([NSExpression mgl_expressionWithJSONObject:jsonExpression], expression);
+    }
+    {
+        NSExpression *expression = [NSExpression expressionWithFormat:@"FUNCTION(x, 'mgl_between:', %@)", @[[NSExpression expressionForConstantValue:@10],
+                                                                                                           [NSExpression expressionForConstantValue:@100]]];
+        NSArray *jsonExpression = @[@"all", @[@">=", @[@"get", @"x"], @10], @[@">=", @[@"get", @"x"], @100]];
+        XCTAssertEqualObjects(expression.mgl_jsonExpressionObject, jsonExpression);
+    }
 }
 
 - (void)testLookupExpressionObject {
