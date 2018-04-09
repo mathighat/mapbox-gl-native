@@ -172,7 +172,7 @@ step-library:
       run:
         name: Install macOS Qt dependencies
         command: |
-          sudo chown -R $USER /usr/local
+          sudo chown -R $USER $(brew --prefix)/*
           brew install qt
           brew link qt --force
           brew linkapps qt
